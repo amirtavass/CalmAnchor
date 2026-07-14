@@ -10,13 +10,14 @@ The React Native application is separated into different responsibilities. The P
 
 ## Supabase Database Architecture
 
-![DB Architecture](./images/db-architecture.png)
+![DB Architecture](./images/database-schema.png)
 
 CalmAnchor Lite uses Supabase as the cloud backend for storing and retrieving application data.
 
 The React Native application communicates with Supabase through the Supabase JS SDK. This allows the application to interact with the PostgreSQL database using structured queries while keeping the database operations separate from the user interface.
 
 The database contains the core entities required for the application:
+
 - Doctor
 - Patient
 - Appointment
