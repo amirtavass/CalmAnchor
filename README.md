@@ -1,4 +1,4 @@
-# CalmAnchor Lite ⚓
+# CalmAnchor Lite
 
 A cross-platform mobile application prototype based on the CalmAnchor CPTSD toolkit workflow.
 
@@ -6,21 +6,21 @@ The project demonstrates a fixed-scenario appointment management system where a 
 
 ---
 
-## 📚 Project Documentation
+## Project Documentation
 
 All project design and architecture documentation is maintained inside the `/docs` directory.
 
 Current documentation includes:
 
-* [Database Schema & ERD](./docs/database-schema.md)
+- [Database Schema & ERD](./docs/database-schema.md)
 
-* [User Journey](./docs/user-journey.md)
+- [User Journey](./docs/user-journey.md)
 
-* [Screen Map & Navigation](./docs/screen-map.md)
+- [Screen Map & Navigation](./docs/screen-map.md)
 
-* [System Architecture](./docs/system-architecture.md)
+- [System Architecture](./docs/system-architecture.md)
 
-* [Appointment Scheduling Logic](./docs/scheduling-logic.md)
+- [Appointment Scheduling Logic](./docs/scheduling-logic.md)
 
 ---
 
@@ -28,35 +28,29 @@ Current documentation includes:
 
 ### Application Structure
 
-CalmAnchor Lite will follow a layered React Native architecture:
+CalmAnchor Lite follows a layered React Native architecture consisting of a Presentation Layer and a Data Layer.
 
-- **Presentation Layer:** Screens, reusable components, and navigation logic.
-- **Data Layer:** Database queries, application services, and communication with external services.
-- **Backend Layer:** Supabase PostgreSQL database managing relational application data.
+The Presentation Layer contains the application's screens, reusable components and navigation. The Data Layer communicates with Supabase through dedicated service modules, keeping database operations separate from the user interface.
 
-This separation keeps responsibilities clear and allows individual parts of the application to be developed and maintained independently.
+This structure was implemented during Phase 1 and provides the foundation for the remaining development phases.
 
 ---
 
 ## 🗄 Database Choice
 
-The application will use **Supabase (PostgreSQL)** as the cloud database.
+## Database
 
-A relational database was selected because the application contains clear relationships between the main entities:
+The application uses Supabase (PostgreSQL) as its cloud database.
+
+The schema consists of three core entities:
 
 - Doctor
 - Patient
 - Appointment
 
-Supabase provides a managed PostgreSQL environment with cloud access and straightforward integration with React Native applications.
+Database integrity is enforced through foreign keys, UNIQUE constraints and CHECK constraints. Appointment scheduling rules such as fixed 20-minute appointments, working hours and prevention of duplicate bookings are validated by PostgreSQL rather than relying only on frontend validation.
 
-Database integrity will be supported through relational features such as:
-
-- Foreign key relationships
-- Database constraints
-- Structured relational queries
-
----
+The database was seeded with one doctor, five patients and five appointments to support development and testing.
 
 ## 📱 Planned Technology Stack
 

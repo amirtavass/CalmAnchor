@@ -4,22 +4,22 @@
 
 ![App Architecture](./images/app-architecture.png)
 
-This diagram shows the overall structure of CalmAnchor Lite and how the main parts of the application communicate with each other.
+This diagram illustrates the structure of CalmAnchor Lite and the communication between the elements of the application.
 
-The React Native application is separated into different responsibilities. The Presentation Layer contains the screens, components, and navigation logic, while the Data Layer handles communication with Supabase and manages access to application data. This separation keeps the codebase organised and makes individual parts of the application easier to maintain.
+The React Native application is split up into various responsibilities. The Presentation Layer includes the screens, components and navigation logic. Access to the application's data is handled by the Data Layer and Supabase is accessed via Supabase JavaScript SDK. In this layer, accessing the database is done via specific service modules, and the configuration for the client is stored in src/lib/supabase.ts and authentication sessions are saved locally through AsyncStorage. This separation helps to maintain the code base in an organised manner and makes it simpler to maintain parts of the application.
 
 ## Supabase Database Architecture
 
 ![DB Architecture](./images/database-schema.png)
 
-CalmAnchor Lite uses Supabase as the cloud backend for storing and retrieving application data.
+CalmAnchor Lite stores and retrieves application data via Supabase cloud backend.
 
-The React Native application communicates with Supabase through the Supabase JS SDK. This allows the application to interact with the PostgreSQL database using structured queries while keeping the database operations separate from the user interface.
+The React Native application communicates with Supabase through the Supabase JS SDK. The application can then query and manipulate the PostgreSQL database with structured queries without mixing UI controls with the database.
 
-The database contains the core entities required for the application:
+The database has the following core entities:
 
 - Doctor
 - Patient
 - Appointment
 
-These relationships are managed through PostgreSQL foreign keys to maintain data consistency.
+These relationships are managed through PostgreSQL foreign keys to keep data consistency.
