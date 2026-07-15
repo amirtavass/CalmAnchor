@@ -2,11 +2,11 @@
 
 ## Database Technology
 
-The application uses Supabase (PostgreSQL) as its cloud database. UUIDs are used as primary keys for all entities, while foreign key relationships and database constraints help maintain data integrity independently of the application layer.
+Supabase (PostgreSQL) is used as the cloud database for the app. All entities are identified by a UUID as their primary key, and foreign key relationships and database constraints also ensure data integrity without relying on the application layer.
 
 ## Entity Relationship Diagram
 
-The following ERD illustrates the three core entities used by the application and the relationships between them. The schema has been designed to satisfy the assessment requirements while remaining simple, maintainable, and easy to extend if additional functionality is introduced in the future.
+The following ERD shows the three main entities of the application and relationships among them. The following ERD shows the three main entities of the application and relationships among them. The schema has been written so that it meets the assessment requirements and is easy to maintain and extend for any new functionality that might be added in the future.
 
 ![DB Architecture](./images/database-schema.png)
 
@@ -14,12 +14,14 @@ The following ERD illustrates the three core entities used by the application an
 
 ## Design Decisions
 
-- **Simple domain model:** The database is centred around three entities: `Doctor`, `Patient`, and `Appointment`. This keeps the design straightforward while supporting all of the required application features.
-- **Direct relationships:** Each appointment stores both `doctor_id` and `patient_id`. Although the doctor could be inferred through the patient record, storing both relationships simplifies schedule queries and keeps them efficient and easy to understand.
-- **Separation of responsibilities:** Patient medical history is stored independently from appointment notes so that long-term patient information is not mixed with consultation-specific records.
-- **Database-driven validation:** Wherever practical, data integrity is enforced by PostgreSQL through foreign keys, `CHECK` constraints, and a `UNIQUE` constraint rather than relying solely on frontend validation.
-- **Stored appointment duration:** Although every appointment lasts 20 minutes, both `start_time` and `end_time` are stored. This introduces a small amount of controlled redundancy but keeps queries and UI rendering simpler, while a database constraint ensures the stored duration always remains valid.
-- **Designed for the project scope:** I considered modelling appointment slots as a separate table. However, for a single doctor managing appointments within one working day, this would introduce unnecessary complexity without providing additional value for the assessment.
+- **Simple domain model:** The database is centred around three entities: `Doctor`, `Patient`, and `Appointment`. It ensures simplicity of design, while meeting all the necessary features of the application.
+- **Direct relationships:** In each appointment, both `doctor_id` and `patient_id` stored. While both relationships can be inferred from the patient record, having them stored makes any schedule queries much easier and keeps them efficient and understandable.
+- **Separation of responsibilities:** Patient medical history is kept separate from appointment notes, which ensures that the medical history of the patient does not become confusing in the consultation record.
+- **Database-driven validation:** Data integrity is enforced on the backend by PostgreSQL using foreign keys, `CHECK` constraints, and a `UNIQUE` constraint and not solely based on validation on the frontend.
+
+- **Stored appointment duration:** Although every appointment lasts 20 minutes, both `start_time` and `end_time` are stored. This gives a slight bit of redundancy, but it simplifies queries and UI rendering, with one of the database constraints guaranteeing that the stored duration remains valid at all times.
+
+- **Designed for the project scope:** I considered modelling appointment slots as a separate table. However, this would cause unnecessary complexity for a single doctor who is accommodating patients within one day of work.
 
 ---
 
@@ -27,31 +29,32 @@ The following ERD illustrates the three core entities used by the application an
 
 ### Doctor
 
-Stores the doctor's profile information. Although the assessment only requires a single doctor, the schema supports multiple doctors without requiring structural changes.
+Stores the doctor's profile information. The schema is designed to allow for multiple doctors without requiring any structural changes, although it only involves one doctor in the assessment.
 
 ### Patient
 
-Stores each patient's basic information and medical history. Every patient is linked to a doctor through a foreign key relationship.
+Stores each patient's basic information and medical history. Each patient is connected to a doctor by a foreign key relationship.
 
 ### Appointment
 
-Represents a scheduled consultation between a doctor and a patient. Alongside the relationship between those two entities, it stores appointment-specific information including the appointment date, start time, end time, status, and consultation notes.
+Represents a scheduled appointment with the doctor and patient. In addition to the relationship between the two entities, it maintains appointment-specific data such as appointment date, start time, end time, appointment status, and consultation notes.
 
 ---
 
 ## Constraints
 
-The database uses several constraints to help maintain data integrity and prevent invalid records from being stored.
+The database has a number of constraints that help to ensure data integrity and to prevent the storage of invalid records.
 
 - **Foreign Keys:** `doctor_id → Doctor(id)` and `patient_id → Patient(id)` ensure that every appointment references valid doctor and patient records.
 - **UNIQUE:** `UNIQUE (doctor_id, appointment_date, start_time)` prevents two appointments from being booked for the same doctor at the same date and start time.
-- **Time Logic:** `CHECK (start_time < end_time)` ensures an appointment cannot end before it begins.
+- **Time Logic:** `CHECK (start_time < end_time)` make sure an appointment cannot end before it begins.
 - **Fixed Appointment Duration:** `CHECK (end_time = start_time + INTERVAL '20 minutes')` guarantees that every appointment lasts exactly 20 minutes.
 - **Working Hours:** Appointments are restricted to the configured working day (09:00–17:00).
 - **Slot Alignment:** Appointment start times must begin on valid 20-minute intervals (`00`, `20`, or `40` minutes past the hour).
 - **Status Validation:** Appointment status is limited to the predefined values `Scheduled`, `Completed`, or `Cancelled`.
 
-Together, these constraints provide an additional layer of protection, ensuring that invalid appointments cannot be inserted even if application-level validation is bypassed.
+These constraints work together to give an additional level of protection, so that in addition to the application-level validation being invalid, they are also unable to be added via the database.
+Constraint behaviour has been tested manually by running SQL test cases in the Supabase SQL Editor. The verification results are documented in `verification-log.md`.
 
 ---
 
@@ -59,12 +62,12 @@ Together, these constraints provide an additional layer of protection, ensuring 
 
 ### Home Screen (Day Schedule)
 
-When the application loads, it retrieves all appointments for the selected day from Supabase and displays them in the doctor's daily schedule.
+On app load, it fetches the data for all appointments that have been created for the selected day from Supabase and updates the doctor's daily schedule.
 
 ### Patient Screen (Patient Detail)
 
-When the doctor selects an appointment, the application uses the associated `patient_id` to retrieve and display the patient's details, including their medical history and appointment information.
+When the Doctor books an appointment with the application receives the corresponding `patient_id` and fetches and displays the medical history and appointment details of the patient.
 
 ### Reschedule Screen (Change Appointment Form)
 
-When rescheduling an appointment, the application retrieves all booked appointment times for the selected day and filters those time slots out before presenting the remaining available options to the user. Database constraints provide an additional safeguard by preventing invalid or conflicting appointments from being stored, even if frontend validation is bypassed.
+If an appointment is rescheduled, the application fetches all appointment times for the day, removes such time slots from the remaining time list and displays the user the remaining times available. Even if frontend validation is bypassed, database constraints take an extra step to ensure that no appointments are added to the database that are invalid.

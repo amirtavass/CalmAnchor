@@ -1,12 +1,12 @@
 # CalmAnchor Lite: Development Roadmap
 
-This document describes the planned development approach for CalmAnchor Lite. The application will be developed incrementally using feature branches, allowing each completed feature to be implemented, verified, documented, and merged into `main` only when it is in a stable, working state.
+This is the development plan for CalmAnchor Lite. The application will be incrementally developed with feature branches, and when each feature is in a stable and functional state, it will be implemented, tested, documented and merged into the `main` branch.
 
 ---
 
 ## 🧠 Development Philosophy
 
-The project follows an incremental approach where functionality takes priority over visual refinement. Each stage builds on the previous one, with implementation, testing, and documentation progressing together to keep the codebase stable throughout development.
+This project is an incremental project meaning it is designed to build usefulness first rather than aesthetics. As each stage is implemented, tested and documented, it extends the stability of the codebase through the development process.
 
 ### Core Engineering Principles
 
@@ -33,7 +33,7 @@ A feature is considered complete when it:
 
 ---
 
-# 🏗️ Proposed Project Structure
+# Proposed Project Structure
 
 The application follows a feature-oriented structure to keep related code together and encourage separation of concerns.
 
@@ -63,35 +63,38 @@ src/
 
 ## ⚖️ Architectural Trade-offs
 
-| Decision                  | Alternative Considered   | Rationale                                                                                                                              |
-| ------------------------- | ------------------------ | -------------------------------------------------------------------------------------------------------------------------------------- |
-| **Supabase (PostgreSQL)** | Firebase                 | The application relies on relational data, foreign keys, and database constraints, making PostgreSQL a better fit for this assessment. |
-| **React Context**         | Redux Toolkit            | The application scope is relatively small, so React Context provides sufficient state management without additional complexity.        |
-| **Feature Branches**      | Direct commits to `main` | Feature branches provide clearer traceability, safer integration, and a cleaner project history.                                       |
+| Decision                  | Alternatives Considered  | Rationale                                                                                                                       |
+| :------------------------ | :----------------------- | :------------------------------------------------------------------------------------------------------------------------------ |
+| **Supabase (PostgreSQL)** | Firebase, MongoDB        | PostgreSQL provides relational modelling, foreign keys, and database constraints required for appointment scheduling.           |
+| **React Context**         | Redux Toolkit            | The application scope is relatively small, so React Context provides sufficient state management without additional complexity. |
+| **Feature Branches**      | Direct commits to `main` | Feature branches provide clearer traceability, safer integration, and a cleaner project history.                                |
 
 ---
 
-# 🚀 Development Phases
+# Development Phases
 
-## Phase 1 – Repository Foundation & Database Setup
+## Phase 1 – Repository Foundation & Database Setup ✅
 
-The first stage establishes the project's technical foundation by creating the React Native application, configuring Supabase, deploying the database schema, and inserting the initial dataset.
+**Status:** Completed
 
-**Target dataset**
+Phase 1 established the technical foundation of the project by creating the React Native application, configuring Supabase, deploying the database schema and preparing a reproducible seed dataset.
 
-- 1 Doctor
-- 5 Patients
-- 5 Appointments
-- 24 standard appointment slots
+### Deliverables
 
-**Evidence of completion**
-
-- Feature branch successfully merged into `main`
-- React Native project configured
+- React Native project configured with Expo
 - Supabase project connected
-- Database schema and constraints deployed
-- Seed data verified
-- Documentation updated where appropriate
+- Database schema deployed
+- Seed data created
+- Documentation completed
+- Database verification completed
+
+### Verification
+
+- Expo application launches successfully in Expo Go.
+- Database schema deployed successfully.
+- Six database constraints verified through manual SQL tests.
+- Seed data confirmed (1 doctor, 5 patients, 5 appointments).
+- Documentation updated to match the implementation.
 
 ---
 
