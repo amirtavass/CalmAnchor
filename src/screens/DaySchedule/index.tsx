@@ -1,19 +1,90 @@
-import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import React, { useEffect, useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
+  ActivityIndicator,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { getTodayAppointments } from "../../services/supabase/appointments";
+import { DailyAppointment } from "../../types/appointment";
+
 export default function DayScheduleScreen() {
+  const [appointments, setAppointments] = useState<DailyAppointment[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const loadAppointments = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      const data = await getTodayAppointments();
+      setAppointments(data);
+    } catch (err) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("Failed to load appointments");
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    loadAppointments();
+  }, []);
+
+  const renderAppointment = ({ item }: { item: DailyAppointment }) => {
+    const formattedTime = item.start_time.slice(0, 5);
+
+    const patientName = item.patient?.full_name;
+
+    return (
+      <View style={styles.card}>
+        <View style={styles.timeContainer}>
+          <Text style={styles.timeText}>{formattedTime}</Text>
+        </View>
+        <View style={styles.detailsContainer}>
+          <Text style={styles.patientName}>
+            {patientName || "Unknown Patient"}
+          </Text>
+          <Text style={styles.statusText}>{item.status}</Text>
+        </View>
+      </View>
+    );
+  };
+
+  const renderEmptyState = () => (
+    <View style={styles.centerContainer}>
+      <Text style={styles.emptyText}>No appointments scheduled for today.</Text>
+    </View>
+  );
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
-        {/* Header */}
         <Text style={styles.headerTitle}>Today's Schedule</Text>
 
-        {/* Temporary Placeholder State */}
-        <View style={styles.placeholderContainer}>
-          <Text style={styles.placeholderText}>
-            No appointments loaded yet.
-          </Text>
-        </View>
+        {loading ? (
+          <View style={styles.centerContainer}>
+            <ActivityIndicator size="large" color="#0288D1" />
+          </View>
+        ) : error ? (
+          <View style={styles.centerContainer}>
+            <Text style={styles.errorText}>Error: {error}</Text>
+          </View>
+        ) : (
+          <FlatList
+            data={appointments}
+            keyExtractor={(item) => item.id}
+            renderItem={renderAppointment}
+            ListEmptyComponent={renderEmptyState}
+            contentContainerStyle={styles.listContainer}
+            showsVerticalScrollIndicator={false}
+          />
+        )}
       </View>
     </SafeAreaView>
   );
@@ -22,11 +93,11 @@ export default function DayScheduleScreen() {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: "#F8FAFC", // Light gray background
+    backgroundColor: "#F8FAFC",
   },
   container: {
     flex: 1,
-    padding: 20,
+    paddingHorizontal: 20,
   },
   headerTitle: {
     fontSize: 28,
@@ -35,13 +106,69 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     marginTop: 10,
   },
-  placeholderContainer: {
+
+  centerContainer: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
   },
-  placeholderText: {
+  emptyText: {
     fontSize: 16,
     color: "#64748B",
+    fontStyle: "italic",
+  },
+  errorText: {
+    fontSize: 16,
+    color: "#EF4444",
+    fontWeight: "500",
+  },
+
+  listContainer: {
+    paddingBottom: 20,
+    flexGrow: 1,
+  },
+  card: {
+    flexDirection: "row",
+    backgroundColor: "#FFFFFF",
+    padding: 16,
+    borderRadius: 12,
+    marginBottom: 12,
+
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.05,
+    shadowRadius: 4,
+
+    elevation: 2,
+    borderWidth: 1,
+    borderColor: "#F1F5F9",
+  },
+  timeContainer: {
+    justifyContent: "center",
+    paddingRight: 16,
+    borderRightWidth: 1,
+    borderRightColor: "#E2E8F0",
+    width: 80,
+  },
+  timeText: {
+    fontSize: 18,
+    fontWeight: "700",
+    color: "#0288D1",
+  },
+  detailsContainer: {
+    flex: 1,
+    paddingLeft: 16,
+    justifyContent: "center",
+  },
+  patientName: {
+    fontSize: 16,
+    fontWeight: "600",
+    color: "#1E293B",
+    marginBottom: 4,
+  },
+  statusText: {
+    fontSize: 14,
+    color: "#64748B",
+    textTransform: "capitalize",
   },
 });
