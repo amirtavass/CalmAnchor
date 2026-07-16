@@ -24,7 +24,7 @@ Current documentation includes:
 
 ---
 
-## 🏗 Planned Architecture
+## Planned Architecture
 
 ### Application Structure
 
@@ -36,7 +36,7 @@ This structure was implemented during Phase 1 and provides the foundation for th
 
 ---
 
-## 🗄 Database Choice
+## Database Choice
 
 ## Database
 
@@ -52,7 +52,7 @@ Database integrity is enforced through foreign keys, UNIQUE constraints and CHEC
 
 The database was seeded with one doctor, five patients and five appointments to support development and testing.
 
-## 📱 Planned Technology Stack
+## Planned Technology Stack
 
 - React Native
 - TypeScript
@@ -64,18 +64,18 @@ React Context was selected because the application scope is intentionally limite
 
 ---
 
-## 🌿 Development Workflow
+## Development Workflow
 
 The project will follow a structured Git workflow using feature branches.
 
 Planned development stages:
 
-1. Project documentation and architecture design
-2. Database integration and initial data setup
-3. Day Schedule implementation
-4. Patient management functionality
-5. Appointment rescheduling workflow
-6. Final testing and Android build preparation
+1. Project documentation and architecture design ✅
+2. Database integration and initial data setup ✅
+3. Day Schedule screen with live appointment data retrieved from Supabase ✅
+4. Patient management (planned)
+5. Appointment rescheduling (planned)
+6. Final testing and Android build preparation (planned)
 
 Each major feature will be developed in its own branch and merged into `main` only when the feature is complete and stable.
 

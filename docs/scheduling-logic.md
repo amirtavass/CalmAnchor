@@ -1,22 +1,27 @@
 # Appointment Scheduling Logic Flow
 
-![Scheduling Logic](./images/scheduling-logic.png)
+This document provides an explanation of how **CalmAnchor Lite** responds to changes in appointments and how it filters out of the available options.
 
-### Appointment Slot Filtering
+![Appointment Scheduling Logic Flow Diagram](./images/scheduling-logic.png)
 
-This diagram explains how CalmAnchor Lite handles appointment changes and ensures that already-booked slots are not shown as available options.
+---
 
-When the doctor opens the Change Appointment Form, the application retrieves the existing appointments for the selected day and compares them against the available 20-minute appointment slots.
+## Appointment Slot Filtering
 
-Instead of allowing the doctor to select any time and handling conflicts afterwards, the application filters unavailable slots before displaying the options. This provides a clearer user experience and prevents invalid appointment changes.
+When the doctor opens the **Change Appointment Form**, the application fetches the existing appointments for the selected day and compares them against the available 20-minute appointment slots.
 
-### Process Overview
+The application filters out the unavailable slots before showing them, rather than allowing the doctor to select any time and handling conflicts _after_ submission.This gives a more user-friendly experience, as well as null checks at the UI level for invalid appointments being changed.
 
-1. The doctor opens the Change Appointment Form.
-2. The application loads existing appointments for the selected day.
-3. Available 20-minute slots between 09:00 and 16:40 are generated.
-4. Existing bookings are compared against the available slots.
-5. Occupied times are removed from the available options.
-6. The doctor selects an available time and saves the updated appointment.
+## Process Overview
 
-This approach keeps the scheduling logic simple while satisfying the requirement that booked appointment slots should not appear as selectable options.
+The underlying logic follows a strict six-step execution:
+
+1. The doctor opens the **Change Appointment Form**.
+2. The application loads existing appointments for the selected day from the database.
+3. Available **20-minute slots** (from 09:00 to 16:40) are generated in memory.
+4. Existing bookings are cross-referenced and compared against the available slots.
+5. Occupied times are actively removed from the available options array.
+6. The doctor selects a guaranteed-available time and saves the updated appointment.
+
+> **Engineering Rationale:**
+> This makes the front end scheduling logic simple and extremely responsive, which meets the core requirement that booked appointment slots must never appear as selectable options to the user.
