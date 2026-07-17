@@ -4,6 +4,7 @@ export interface DailyAppointment {
   end_time: string;
   status: string;
   patient: {
+    id: string;
     full_name: string;
   } | null;
 }

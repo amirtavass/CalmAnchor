@@ -1,11 +1,11 @@
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import DayScheduleScreen from "./src/screens/DaySchedule";
+import AppNavigator from "./src/navigation/AppNavigator";
 
 export default function App() {
   return (
     <SafeAreaProvider>
-      <DayScheduleScreen />
+      <AppNavigator />
       <StatusBar style="auto" />
     </SafeAreaProvider>
   );

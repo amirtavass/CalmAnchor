@@ -5,12 +5,18 @@ import {
   StyleSheet,
   FlatList,
   ActivityIndicator,
+  TouchableOpacity,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { RootStackParamList } from "../../types/navigation";
 import { getTodayAppointments } from "../../services/supabase/appointments";
 import { DailyAppointment } from "../../types/appointment";
 
 export default function DayScheduleScreen() {
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const [appointments, setAppointments] = useState<DailyAppointment[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -38,11 +44,19 @@ export default function DayScheduleScreen() {
 
   const renderAppointment = ({ item }: { item: DailyAppointment }) => {
     const formattedTime = item.start_time.slice(0, 5);
-
     const patientName = item.patient?.full_name;
+    const patientId = item.patient?.id;
 
     return (
-      <View style={styles.card}>
+      <TouchableOpacity
+        style={styles.card}
+        activeOpacity={0.7}
+        onPress={() => {
+          if (patientId) {
+            navigation.navigate("PatientDetail", { patientId });
+          }
+        }}
+      >
         <View style={styles.timeContainer}>
           <Text style={styles.timeText}>{formattedTime}</Text>
         </View>
@@ -52,7 +66,7 @@ export default function DayScheduleScreen() {
           </Text>
           <Text style={styles.statusText}>{item.status}</Text>
         </View>
-      </View>
+      </TouchableOpacity>
     );
   };
 
@@ -65,7 +79,16 @@ export default function DayScheduleScreen() {
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
-        <Text style={styles.headerTitle}>Today's Schedule</Text>
+        {/* NEW HEADER ROW WITH NAVIGATION BUTTON */}
+        <View style={styles.headerRow}>
+          <Text style={styles.headerTitle}>Today's Schedule</Text>
+          <TouchableOpacity
+            style={styles.navButton}
+            onPress={() => navigation.navigate("PatientList")}
+          >
+            <Text style={styles.navButtonText}>All Patients</Text>
+          </TouchableOpacity>
+        </View>
 
         {loading ? (
           <View style={styles.centerContainer}>
@@ -99,12 +122,30 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 20,
   },
+
+  // HEADER STYLES UPDATED
+  headerRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 20,
+    marginTop: 10,
+  },
   headerTitle: {
     fontSize: 28,
     fontWeight: "bold",
     color: "#0F172A",
-    marginBottom: 20,
-    marginTop: 10,
+  },
+  navButton: {
+    backgroundColor: "#E2E8F0",
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    borderRadius: 8,
+  },
+  navButtonText: {
+    color: "#1E293B",
+    fontWeight: "600",
+    fontSize: 14,
   },
 
   centerContainer: {
