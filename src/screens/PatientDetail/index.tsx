@@ -5,9 +5,11 @@ import { RootStackParamList } from "../../types/navigation";
 import { getPatient } from "../../services/supabase/patients";
 import { Patient } from "../../types/patient";
 
+//this line extracts the patientId:string
 type PatientDetailRouteProp = RouteProp<RootStackParamList, "PatientDetail">;
 
 export default function PatientDetailScreen() {
+  //in react useParams is used for this concept
   const route = useRoute<PatientDetailRouteProp>();
   const { patientId } = route.params;
 
