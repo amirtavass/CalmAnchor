@@ -6,7 +6,6 @@ import { DailyAppointment } from "../../types/appointment";
 // ============================
 
 export const getTodayAppointments = async (): Promise<DailyAppointment[]> => {
-  // Use local time instead of UTC to avoid timezone shift bugs (e.g., BST midnight vs UTC)
   const today = new Date().toLocaleDateString("en-CA");
 
   const { data, error } = await supabase
@@ -17,7 +16,7 @@ export const getTodayAppointments = async (): Promise<DailyAppointment[]> => {
       start_time,
       end_time,
       status,
-      patient:patient ( full_name )
+      patient:patient ( id,full_name )
     `,
     )
     .eq("appointment_date", today)
@@ -27,7 +26,6 @@ export const getTodayAppointments = async (): Promise<DailyAppointment[]> => {
     console.error("Failed to fetch today's appointments:", error);
     throw new Error(error.message);
   }
-
-  // TODO: Replace manual casting with generated Supabase database types.
+  //concept of TS "force cast"
   return (data ?? []) as unknown as DailyAppointment[];
 };
