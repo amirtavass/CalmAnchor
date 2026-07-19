@@ -9,6 +9,7 @@ import PatientDetailScreen from "../screens/PatientDetail";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
+//navigationContainer is just like browserrouter in react,wrapping all routes inside
 export default function AppNavigator() {
   return (
     <NavigationContainer>

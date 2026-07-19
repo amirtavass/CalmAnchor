@@ -70,6 +70,8 @@ export default function DayScheduleScreen() {
     );
   };
 
+  //in case of no appointments
+
   const renderEmptyState = () => (
     <View style={styles.centerContainer}>
       <Text style={styles.emptyText}>No appointments scheduled for today.</Text>
@@ -79,7 +81,6 @@ export default function DayScheduleScreen() {
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
-        {/* NEW HEADER ROW WITH NAVIGATION BUTTON */}
         <View style={styles.headerRow}>
           <Text style={styles.headerTitle}>Today's Schedule</Text>
           <TouchableOpacity

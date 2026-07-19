@@ -70,6 +70,13 @@ export default function PatientListScreen() {
         data={patients}
         keyExtractor={(item) => item.id}
         renderItem={renderPatientRow}
+        ListEmptyComponent={() => (
+          <Text
+            style={{ textAlign: "center", color: "#64748B", marginTop: 40 }}
+          >
+            No registered patients found.
+          </Text>
+        )}
         contentContainerStyle={styles.listContainer}
       />
     </View>
