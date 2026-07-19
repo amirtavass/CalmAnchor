@@ -17,6 +17,8 @@ export default function PatientDetailScreen() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  //patientid must be included in the dependency array of useEffect as it would change
+
   useEffect(() => {
     const loadPatient = async () => {
       try {

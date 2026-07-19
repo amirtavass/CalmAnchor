@@ -22,7 +22,7 @@ Current documentation includes:
 
 - [Appointment Scheduling Logic](./docs/scheduling-logic.md)
 
----
+Together, these documents describe the application's database design, navigation flow, scheduling logic, and overall architecture throughout development.
 
 ## Planned Architecture
 
@@ -30,15 +30,13 @@ Current documentation includes:
 
 CalmAnchor Lite follows a layered React Native architecture consisting of a Presentation Layer and a Data Layer.
 
-The Presentation Layer contains the application's screens, reusable components and navigation. The Data Layer communicates with Supabase through dedicated service modules, keeping database operations separate from the user interface.
+The Presentation Layer contains the application's screens, reusable components, and navigation. React Navigation manages movement between the Day Schedule, Patient List, and Patient Detail screens, while the Data Layer communicates with Supabase through dedicated service modules, keeping database operations separate from the user interface.
 
 This structure was implemented during Phase 1 and provides the foundation for the remaining development phases.
 
 ---
 
 ## Database Choice
-
-## Database
 
 The application uses Supabase (PostgreSQL) as its cloud database.
 
@@ -73,7 +71,7 @@ Planned development stages:
 1. Project documentation and architecture design ✅
 2. Database integration and initial data setup ✅
 3. Day Schedule screen with live appointment data retrieved from Supabase ✅
-4. Patient management (planned)
+4. Patient management (Patient List, Patient Detail and navigation) ✅
 5. Appointment rescheduling (planned)
 6. Final testing and Android build preparation (planned)
 

@@ -82,15 +82,15 @@ Verified the shape of the relational data returned by Supabase, confirming that 
 
 Merged the feature branch to main with zero console errors.
 
-## Phase 3: Patient Management
+## Phase 3: Patient Management ✅
 
-Introduce the Patient List and Patient Detail screens for reviewing medical information.
+Built the Patient List and Patient Detail screens using live Supabase data.
 
-Implement navigation between the broader patient list and specific detail screens.
+Implemented navigation from both the Day Schedule and Patient List to the Patient Detail screen.
 
-Retrieve live patient history and appointment data from the database.
+Retrieved and displayed patient information and medical history through relational database queries.
 
-Update documentation as required and merge the stable feature branch into main.
+Updated the supporting documentation and merge the completed feature branch into `main`.
 
 ## Phase 4: Appointment Rescheduling
 

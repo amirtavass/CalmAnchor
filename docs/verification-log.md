@@ -1,97 +1,85 @@
 # Database Verification Log
 
-This document records the manual verification carried out after implementing the Phase 1 database schema in Supabase.
+This document records the manual verification carried out throughout the implementation of CalmAnchor Lite.
 
-The aim was to confirm that the database constraints behave as expected before any application logic is built.
+The verification process confirms that the database constraints, data retrieval, and application behaviour operate as expected during development.
 
 ---
 
 ## Verification Summary
 
-| Test                              | Expected Result  | Outcome |
-| --------------------------------- | ---------------- | ------- |
-| Duplicate appointment booking     | Rejected         | Passed  |
-| Invalid appointment duration      | Rejected         | Passed  |
-| Invalid appointment status        | Rejected         | Passed  |
-| Appointment outside working hours | Rejected         | Passed  |
-| Invalid slot alignment            | Rejected         | Passed  |
-| Valid appointment                 | Insert succeeded | Passed  |
+| Test                              | Expected Result               | Outcome |
+| --------------------------------- | ----------------------------- | ------- |
+| Duplicate appointment booking     | Rejected                      | Passed  |
+| Invalid appointment duration      | Rejected                      | Passed  |
+| Invalid appointment status        | Rejected                      | Passed  |
+| Appointment outside working hours | Rejected                      | Passed  |
+| Valid appointment                 | Insert succeeded              | Passed  |
+| Live appointment retrieval        | Appointments displayed        | Passed  |
+| Patient List retrieval            | All seeded patients displayed | Passed  |
+| Patient Detail retrieval          | Selected patient loaded       | Passed  |
+| Navigation to Patient Detail      | Opens correct patient         | Passed  |
 
 ---
 
-## Example Verification
-
-The following SQL was used to verify that the database prevents duplicate bookings.
-
-```sql
-INSERT INTO Appointment (
-    doctor_id,
-    patient_id,
-    appointment_date,
-    start_time,
-    end_time,
-    notes
-)
-VALUES (
-    'd1234567-e89b-12d3-a456-426614174000',
-    'a1111111-e89b-12d3-a456-426614174000',
-    CURRENT_DATE,
-    '09:00:00',
-    '09:20:00',
-    'Duplicate booking test'
-);
-```
-
-**Expected:** The insert is rejected by the `unique_doctor_slot` constraint.
-
-**Result:** The database rejected the insert.
-
----
-
-## Evidence
+## Verification Evidence
 
 ### Duplicate booking rejected
 
-The database rejected an attempt to create two appointments for the same doctor at the same date and time, confirming that the `UNIQUE` constraint is enforced.
+The database rejected an attempt to create two appointments for the same doctor at the same date and time, confirming that the `UNIQUE` constraint prevents duplicate bookings.
 
-![alt text](/docs/images/phase1-duplicate-booking.png)
+![Duplicate booking rejected](./images/phase1-duplicate-booking.png)
 
 ---
 
 ### Invalid duration rejected
 
-The database rejected an appointment whose duration was different from the required 20 minutes, confirming that the duration constraint is working as intended.
+The database rejected an appointment whose duration was different from the required 20 minutes, confirming that only fixed 20-minute appointments are accepted.
 
-![alt text](/docs/images/phase1-invalid-duration.png)
+![Invalid duration rejected](./images/phase1-invalid-duration.png)
 
 ---
 
 ### Outside working hours rejected
 
-The database prevented an appointment from being created outside the configured working hours (09:00–17:00), demonstrating that the working-hours validation is enforced.
+The database prevented an appointment from being created outside the configured working hours (09:00–17:00), confirming that scheduling rules are enforced by PostgreSQL.
 
-![alt text](/docs/images/phase1-outside-working-hours.png)
+![Outside working hours rejected](./images/phase1-outside-working-hours.png)
 
 ---
 
 ### Valid appointment inserted successfully
 
-A correctly formatted appointment satisfying all database constraints was inserted successfully, confirming that valid records are accepted.
+A correctly formatted appointment satisfying every database constraint was inserted successfully.
 
-![alt text](/docs/images/image-3.png)
+![Valid appointment inserted](./images/image-3.png)
 
 ---
 
 ### Phase 2 – Live appointment retrieval
 
-The Day Schedule screen successfully retrieved live appointment data from Supabase, displaying the seeded patient records together with their scheduled appointment times.
+The Day Schedule screen successfully retrieved live appointment data from Supabase, displaying the seeded appointments for the selected day.
 
 ![Day Schedule displaying live appointments](./images/phase2-day-schedule.png)
 
 ---
 
+### Phase 3 – Patient List
+
+The Patient List screen successfully retrieved all seeded patients from Supabase, confirming that the application can display the complete patient dataset.
+
+![Patient List](./images/phase3-patient-list.jpeg)
+
+---
+
+### Phase 3 – Patient Detail
+
+Selecting a patient from either the Day Schedule or the Patient List opened the correct Patient Detail screen and displayed the patient's medical history retrieved from Supabase.
+
+## ![Patient Detail](./images/phase3-patient-detail.jpeg)
+
 ## Conclusion
 
-All database constraints were manually verified using the Supabase SQL Editor.
+Manual verification was carried out after each completed phase of development.
 
-The database successfully rejected invalid data while accepting valid appointment records, confirming that the schema enforces scheduling rules independently of the application.
+The database consistently enforced scheduling rules, rejected invalid records, accepted valid data, and successfully served relational data to the application through Supabase.
