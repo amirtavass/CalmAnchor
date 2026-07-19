@@ -6,6 +6,7 @@ import { RootStackParamList } from "../types/navigation";
 import DayScheduleScreen from "../screens/DaySchedule";
 import PatientListScreen from "../screens/PatientList";
 import PatientDetailScreen from "../screens/PatientDetail";
+import ChangeAppointmentScreen from "../screens/ChangeAppointment";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -28,6 +29,11 @@ export default function AppNavigator() {
           name="PatientDetail"
           component={PatientDetailScreen}
           options={{ title: "Patient Details" }}
+        />
+        <Stack.Screen
+          name="ChangeAppointment"
+          component={ChangeAppointmentScreen}
+          options={{ title: "Reschedule" }}
         />
       </Stack.Navigator>
     </NavigationContainer>

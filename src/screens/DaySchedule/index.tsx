@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import {
   View,
   Text,
@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../types/navigation";
 import { getTodayAppointments } from "../../services/supabase/appointments";
@@ -38,9 +38,11 @@ export default function DayScheduleScreen() {
     }
   };
 
-  useEffect(() => {
-    loadAppointments();
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      loadAppointments();
+    }, []),
+  );
 
   const renderAppointment = ({ item }: { item: DailyAppointment }) => {
     const formattedTime = item.start_time.slice(0, 5);
@@ -48,25 +50,41 @@ export default function DayScheduleScreen() {
     const patientId = item.patient?.id;
 
     return (
-      <TouchableOpacity
-        style={styles.card}
-        activeOpacity={0.7}
-        onPress={() => {
-          if (patientId) {
-            navigation.navigate("PatientDetail", { patientId });
+      <View style={styles.cardContainer}>
+        {/* Main Card Touchable */}
+        <TouchableOpacity
+          style={styles.cardMain}
+          activeOpacity={0.7}
+          onPress={() => {
+            if (patientId) {
+              navigation.navigate("PatientDetail", { patientId });
+            }
+          }}
+        >
+          <View style={styles.timeContainer}>
+            <Text style={styles.timeText}>{formattedTime}</Text>
+          </View>
+          <View style={styles.detailsContainer}>
+            <Text style={styles.patientName}>
+              {patientName || "Unknown Patient"}
+            </Text>
+            <Text style={styles.statusText}>{item.status}</Text>
+          </View>
+        </TouchableOpacity>
+
+        {/* Sibling Edit Button */}
+        <TouchableOpacity
+          style={styles.editButton}
+          onPress={() =>
+            navigation.navigate("ChangeAppointment", {
+              appointmentId: item.id,
+              currentDate: item.appointment_date,
+            })
           }
-        }}
-      >
-        <View style={styles.timeContainer}>
-          <Text style={styles.timeText}>{formattedTime}</Text>
-        </View>
-        <View style={styles.detailsContainer}>
-          <Text style={styles.patientName}>
-            {patientName || "Unknown Patient"}
-          </Text>
-          <Text style={styles.statusText}>{item.status}</Text>
-        </View>
-      </TouchableOpacity>
+        >
+          <Text style={styles.editButtonText}>Edit</Text>
+        </TouchableOpacity>
+      </View>
     );
   };
 
@@ -124,7 +142,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
 
-  // HEADER STYLES UPDATED
   headerRow: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -169,21 +186,25 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
     flexGrow: 1,
   },
-  card: {
+
+  cardContainer: {
     flexDirection: "row",
     backgroundColor: "#FFFFFF",
-    padding: 16,
     borderRadius: 12,
     marginBottom: 12,
-
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.05,
     shadowRadius: 4,
-
     elevation: 2,
     borderWidth: 1,
     borderColor: "#F1F5F9",
+    overflow: "hidden", // Crucial: Keeps the inner touchables inside the border radius
+  },
+  cardMain: {
+    flex: 1,
+    flexDirection: "row",
+    padding: 16,
   },
   timeContainer: {
     justifyContent: "center",
@@ -212,5 +233,16 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: "#64748B",
     textTransform: "capitalize",
+  },
+  editButton: {
+    padding: 16,
+    justifyContent: "center",
+    backgroundColor: "#F8FAFC",
+    borderLeftWidth: 1,
+    borderLeftColor: "#E2E8F0",
+  },
+  editButtonText: {
+    color: "#0288D1",
+    fontWeight: "bold",
   },
 });
