@@ -51,7 +51,6 @@ export default function DayScheduleScreen() {
 
     return (
       <View style={styles.cardContainer}>
-        {/* Main Card Touchable */}
         <TouchableOpacity
           style={styles.cardMain}
           activeOpacity={0.7}
@@ -72,7 +71,6 @@ export default function DayScheduleScreen() {
           </View>
         </TouchableOpacity>
 
-        {/* Sibling Edit Button */}
         <TouchableOpacity
           style={styles.editButton}
           onPress={() =>

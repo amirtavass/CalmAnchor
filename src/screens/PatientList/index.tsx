@@ -14,11 +14,14 @@ import { getAllPatients } from "../../services/supabase/patients";
 import { Patient } from "../../types/patient";
 
 export default function PatientListScreen() {
+  //this line prevents wrong route name or missing params
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const [patients, setPatients] = useState<Patient[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  //this useEffect fetches the data of patients and need no dependancy arry
 
   useEffect(() => {
     const fetchPatients = async () => {
