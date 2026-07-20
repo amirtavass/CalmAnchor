@@ -7,6 +7,7 @@ import DayScheduleScreen from "../screens/DaySchedule";
 import PatientListScreen from "../screens/PatientList";
 import PatientDetailScreen from "../screens/PatientDetail";
 import ChangeAppointmentScreen from "../screens/ChangeAppointment";
+import SettingsScreen from "../screens/Settings";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -34,6 +35,11 @@ export default function AppNavigator() {
           name="ChangeAppointment"
           component={ChangeAppointmentScreen}
           options={{ title: "Reschedule" }}
+        />
+        <Stack.Screen
+          name="Settings"
+          component={SettingsScreen}
+          options={{ title: "Settings" }}
         />
       </Stack.Navigator>
     </NavigationContainer>

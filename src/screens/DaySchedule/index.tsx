@@ -99,12 +99,22 @@ export default function DayScheduleScreen() {
       <View style={styles.container}>
         <View style={styles.headerRow}>
           <Text style={styles.headerTitle}>Today's Schedule</Text>
-          <TouchableOpacity
-            style={styles.navButton}
-            onPress={() => navigation.navigate("PatientList")}
-          >
-            <Text style={styles.navButtonText}>All Patients</Text>
-          </TouchableOpacity>
+
+          <View style={{ flexDirection: "row", gap: 10 }}>
+            <TouchableOpacity
+              style={styles.navButton}
+              onPress={() => navigation.navigate("PatientList")}
+            >
+              <Text style={styles.navButtonText}>All Patients</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles.navButton}
+              onPress={() => navigation.navigate("Settings")}
+            >
+              <Text style={styles.navButtonText}>Settings</Text>
+            </TouchableOpacity>
+          </View>
         </View>
 
         {loading ? (

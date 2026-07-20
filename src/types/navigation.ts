@@ -5,4 +5,5 @@ export type RootStackParamList = {
   PatientList: undefined;
   PatientDetail: { patientId: string };
   ChangeAppointment: { appointmentId: string; currentDate: string };
+  Settings: undefined;
 };
