@@ -14,6 +14,7 @@ export const getTodayAppointments = async (): Promise<DailyAppointment[]> => {
       `
       id,
       start_time,
+      appointment_date,
       end_time,
       status,
       patient:patient ( id,full_name )
