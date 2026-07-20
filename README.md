@@ -72,7 +72,7 @@ Planned development stages:
 2. Database integration and initial data setup ✅
 3. Day Schedule screen with live appointment data retrieved from Supabase ✅
 4. Patient management (Patient List, Patient Detail and navigation) ✅
-5. Appointment rescheduling (planned)
+5. Appointment rescheduling ✅
 6. Final testing and Android build preparation (planned)
 
 Each major feature will be developed in its own branch and merged into `main` only when the feature is complete and stable.

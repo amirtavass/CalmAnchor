@@ -92,15 +92,15 @@ Retrieved and displayed patient information and medical history through relation
 
 Updated the supporting documentation and merge the completed feature branch into `main`.
 
-## Phase 4: Appointment Rescheduling
+## Phase 4: Appointment Rescheduling ✅
 
-Implements core scheduling logic to allow rescheduling while preventing double bookings.
+Implemented the core scheduling logic to allow users to reschedule appointments while mathematically preventing double bookings.
 
-Generate 24 daily slots, exclude currently booked slots, and present remaining available options.
+Generated standard 20-minute daily intervals, queried Supabase for currently booked times, and dynamically presented the remaining available options in a responsive UI grid.
 
-Save appointment changes while maintaining database integrity.
+Saved appointment changes using a database `UPDATE` mutation while maintaining database constraints and integrity.
 
-Verify scheduling behavior matches the documented workflow and merge into main.
+Verified that the scheduling behaviour matches the documented workflow, correctly triggers an alert, and automatically refreshes the Day Schedule upon completion.
 
 ## Phase 5: Application Integration
 

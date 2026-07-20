@@ -24,7 +24,7 @@ export default function ChangeAppointmentScreen() {
   //extracting data step 2 with useRoute(same as useparams in react)
   const route = useRoute<ChangeRouteProp>();
   const navigation = useNavigation<NavigationProp>();
-  //extracting data step 3 by destructing
+  //extracting data step 3 by destructing (the data coming from dayschedule index.tsx)
   const { appointmentId, currentDate } = route.params;
 
   const [availableSlots, setAvailableSlots] = useState<string[]>([]);
@@ -33,6 +33,11 @@ export default function ChangeAppointmentScreen() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  //this useEffect fills the availible slots by
+  //1.getting bookedtimes by calling getBookedSlotsByDate and sending currentdata
+  //2.feed that bookedtimes to getAvailableSlots so we have the freeslots
+  //3.saving those freeslots in ui state
 
   useEffect(() => {
     const fetchAndFilterSlots = async () => {
@@ -50,6 +55,10 @@ export default function ChangeAppointmentScreen() {
     fetchAndFilterSlots();
   }, [currentDate]);
 
+  //after user hits confirm new time,handleSave executes and
+  //1.it calculates the end time of the appointment
+  //2.it calls rescheduleAppointment to overwrite the old ones
+  //3.it give the user sucess message and navigates to dayschedule where the screen auto refreshes there thanks to usefocuseffect
   const handleSave = async () => {
     if (!selectedSlot) return;
     try {

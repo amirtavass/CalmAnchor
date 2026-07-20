@@ -22,6 +22,16 @@ The verification process confirms that the database constraints, data retrieval,
 
 ---
 
+## Development Challenges & Resolutions
+
+During Phase 4, a notable integration challenge was encountered and successfully resolved:
+
+- **Issue:** When attempting to load the Change Appointment screen, a PostgreSQL error was thrown: `invalid input for type date "undefined"`.
+- **Root Cause:** The `currentDate` parameter was passing as `undefined` through React Navigation because the initial Supabase `SELECT` query in the Day Schedule screen omitted the `appointment_date` column in its payload.
+- **Resolution:** The data fetching utility (`getTodayAppointments`) was updated to explicitly include `appointment_date` in the `.select()` statement. This successfully passed the strict date string to the routing params, satisfying both React Navigation and PostgreSQL strict type requirements.
+
+---
+
 ## Verification Evidence
 
 ### Duplicate booking rejected
@@ -77,6 +87,22 @@ The Patient List screen successfully retrieved all seeded patients from Supabase
 Selecting a patient from either the Day Schedule or the Patient List opened the correct Patient Detail screen and displayed the patient's medical history retrieved from Supabase.
 
 ## ![Patient Detail](./images/phase3-patient-detail.jpeg)
+
+---
+
+### Phase 4 – Available slots calculation
+
+The Change Appointment screen successfully retrieved currently booked times from the database and mathematically filtered them out of the generated 20-minute interval list, preventing the user from double-booking existing slots.
+
+![Available slots grid](./images/phase4-available-slots.jpeg)
+
+---
+
+### Phase 4 – Appointment rescheduled successfully
+
+Submitting a new time triggered a successful database mutation. The application provided a success alert, routed the user back to the Day Schedule, and automatically re-fetched the data to display the newly updated time.
+
+![Reschedule success alert](./images/phase4-reschedule-success.jpeg)
 
 ## Conclusion
 
