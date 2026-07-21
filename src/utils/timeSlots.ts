@@ -1,3 +1,5 @@
+//Algorithm Implementation
+
 //CalmAnchor project uses fixed working day defined by the assessment: 09:00–17:00
 //since the range does not change and number of slots is small ,they are kept as a list rather than generated dynamicaly with complex math
 
@@ -28,8 +30,8 @@ const WORKING_SLOTS: string[] = [
   "16:40:00",
 ];
 
-//idea of this function is that when called, Compare fixed WORKING_SLOTS
-// against bookedStartTimes and return only free slots.
+//This function acts as an algorithm and when called,it Compares fixed WORKING_SLOTS
+//against bookedStartTimes and return only free slots.
 
 export const getAvailableSlots = (bookedStartTimes: string[]): string[] => {
   return WORKING_SLOTS.filter((slot) => !bookedStartTimes.includes(slot));

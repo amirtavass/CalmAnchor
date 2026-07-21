@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useState, useCallback } from "react";
 import {
   View,
   Text,
@@ -97,14 +97,29 @@ export default function DayScheduleScreen() {
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
-        <View style={styles.headerRow}>
+        <View style={styles.header}>
           <Text style={styles.headerTitle}>Today's Schedule</Text>
-          <TouchableOpacity
-            style={styles.navButton}
-            onPress={() => navigation.navigate("PatientList")}
-          >
-            <Text style={styles.navButtonText}>All Patients</Text>
-          </TouchableOpacity>
+
+          <Text style={styles.subtitle}>
+            {appointments.length} appointment
+            {appointments.length !== 1 ? "s" : ""} scheduled
+          </Text>
+
+          <View style={styles.headerActions}>
+            <TouchableOpacity
+              style={styles.navButton}
+              onPress={() => navigation.navigate("PatientList")}
+            >
+              <Text style={styles.navButtonText}>View All Patients</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles.navButton}
+              onPress={() => navigation.navigate("Settings")}
+            >
+              <Text style={styles.navButtonText}>Settings</Text>
+            </TouchableOpacity>
+          </View>
         </View>
 
         {loading ? (
@@ -139,18 +154,24 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 20,
   },
-
-  headerRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginBottom: 20,
+  header: {
     marginTop: 10,
+    marginBottom: 24,
   },
   headerTitle: {
     fontSize: 28,
     fontWeight: "bold",
     color: "#0F172A",
+  },
+  subtitle: {
+    fontSize: 16,
+    color: "#64748B",
+    marginTop: 4,
+  },
+  headerActions: {
+    flexDirection: "row",
+    marginTop: 16,
+    gap: 10,
   },
   navButton: {
     backgroundColor: "#E2E8F0",
