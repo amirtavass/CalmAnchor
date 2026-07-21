@@ -8,19 +8,19 @@ This diagram shows the navigation flow of CalmAnchor Lite and how the main scree
 
 **1. Day Schedule (Home)**
 
-* The main screen where the doctor views the appointments scheduled for the day.
-* → *Opens:* **Patient Detail**
-
-  * → *Opens:* **Change Appointment Form**
-
-    * → *After saving changes:* Returns to the updated **Day Schedule**
+- The central hub where the doctor views the dynamically counted appointments scheduled for the day.
+- → _Opens:_ **Patient Detail** (via tapping an appointment)
+- → _Opens:_ **Change Appointment Form** (via Edit button)
+  - → _After saving changes:_ Returns to the updated **Day Schedule**
+- → _Opens:_ **Patient List** (via View All Patients button)
+- → _Opens:_ **Doctor Profile / Settings** (via Settings button)
 
 **2. Patient List**
 
-* Displays all patients managed by the doctor.
-* → *Opens:* **Patient Detail** where the doctor can view patient information and history.
+- Displays all patients managed by the doctor.
+- → _Opens:_ **Patient Detail** where the doctor can view specific patient information and medical history.
 
 **3. Doctor Profile / Settings**
 
-* Displays basic doctor information and application preferences.
-* This screen provides a dedicated place for future settings while keeping the current implementation focused on the required assessment scope.
+- A read-only screen that queries the database to display the active doctor's verified profile (Name, Specialty, and Email).
+- Implements a strict Loading → Error → Content UI cycle to ensure stable data fetching.

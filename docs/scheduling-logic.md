@@ -10,7 +10,7 @@ This document provides an explanation of how **CalmAnchor Lite** responds to cha
 
 When the doctor opens the **Change Appointment Form**, the application fetches the existing appointments for the selected day and compares them against the available 20-minute appointment slots.
 
-The application filters out the unavailable slots before showing them, rather than allowing the doctor to select any time and handling conflicts _after_ submission.This gives a more user-friendly experience, as well as null checks at the UI level for invalid appointments being changed.
+The application filters out the unavailable slots before showing them, rather than allowing the doctor to select any time and handling conflicts _after_ submission.This improves usability by ensuring that unavailable appointment times are never presented as selectable options, reducing invalid user actions before submission.
 
 ## Process Overview
 

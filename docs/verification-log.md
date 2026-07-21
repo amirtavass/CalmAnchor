@@ -32,7 +32,7 @@ During Phase 4, a notable integration challenge was encountered and successfully
 
 ---
 
-## Verification Evidence
+## Verification Results
 
 ### Duplicate booking rejected
 
@@ -86,7 +86,7 @@ The Patient List screen successfully retrieved all seeded patients from Supabase
 
 Selecting a patient from either the Day Schedule or the Patient List opened the correct Patient Detail screen and displayed the patient's medical history retrieved from Supabase.
 
-## ![Patient Detail](./images/phase3-patient-detail.jpeg)
+![Patient Detail](./images/phase3-patient-detail.jpeg)
 
 ---
 
@@ -103,6 +103,20 @@ The Change Appointment screen successfully retrieved currently booked times from
 Submitting a new time triggered a successful database mutation. The application provided a success alert, routed the user back to the Day Schedule, and automatically re-fetched the data to display the newly updated time.
 
 ![Reschedule success alert](./images/phase4-reschedule-success.jpeg)
+
+### Phase 5 – Day Schedule Assembly & Dynamic Header
+
+The Day Schedule screen was successfully refactored to act as the central routing hub. The new stacked header accurately tracks the dynamic state of the database by displaying the live appointment count, and successfully routes to all other areas of the application.
+
+![Day Schedule new layout and navigation hub](./images/phase5-day-schedule-hub.jpeg)
+
+---
+
+### Phase 5 – Doctor Profile (Settings) Screen
+
+The Settings screen successfully fetched and displayed the single-doctor profile data (Dr. Sarah Jenkins) from Supabase. The screen strictly followed the required UI safety cycle, rendering loading states before successfully resolving to the profile card.
+
+![Doctor Profile screen displaying fetched data](./images/phase5-settings-profile.jpeg)
 
 ## Conclusion
 

@@ -6,7 +6,7 @@
 
 This diagram illustrates the structure of CalmAnchor Lite and the communication between the elements of the application.
 
-The React Native application is split up into various responsibilities. The Presentation Layer includes the screens, components and navigation logic. Access to the application's data is handled by the Data Layer and Supabase is accessed via Supabase JavaScript SDK. In this layer, accessing the database is done via specific service modules, and the configuration for the client is stored in src/lib/supabase.ts and authentication sessions are saved locally through AsyncStorage. This separation helps to maintain the code base in an organised manner and makes it simpler to maintain parts of the application.
+The React Native application is split up into various responsibilities. The Presentation Layer includes the screens, components and navigation logic. Access to the application's data is handled by the Data Layer and Supabase is accessed via Supabase JavaScript SDK. In this layer, accessing the database is done via specific service modules, and the configuration for the client is stored in src/lib/supabase.ts
 
 ## Supabase Database Architecture
 

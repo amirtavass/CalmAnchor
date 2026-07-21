@@ -1,6 +1,6 @@
 # CalmAnchor Lite: Development Roadmap
 
-This is the development plan for CalmAnchor Lite. The application will be incrementally developed with feature branches, and when each feature is in a stable and functional state, it will be implemented, tested, documented and merged into the `main` branch.
+This document records the phased development of CalmAnchor Lite. The application will be incrementally developed with feature branches, and when each feature is in a stable and functional state, it will be implemented, tested, documented and merged into the `main` branch.
 
 ---
 
@@ -18,7 +18,7 @@ A phase is considered complete when the implementation has been verified, docume
 
 ---
 
-# Proposed Project Structure
+# Project Structure
 
 The application is organized around features to ensure related code together and encourage separation of concerns.
 
@@ -102,15 +102,17 @@ Saved appointment changes using a database `UPDATE` mutation while maintaining d
 
 Verified that the scheduling behaviour matches the documented workflow, correctly triggers an alert, and automatically refreshes the Day Schedule upon completion.
 
-## Phase 5: Application Integration
+## Phase 5: Application Integration ✅
 
-Connect individual features through the application navigation to complete the user workflow.
+Connected individual features through the central `AppNavigator` to complete the end-to-end user workflow.
 
-Ensure end-to-end navigation functions correctly across all screens.
+Built the Settings (Doctor Profile) screen, implementing a dedicated Supabase fetching service to retrieve relational doctor data.
 
-Implement comprehensive, graceful loading and error states across the entire application flow.
+Refactored the Day Schedule header to act as the application's central hub, featuring a modern stacked layout and a dynamic daily appointment counter.
 
-Conduct full workflow testing before merging the final feature branch into main.
+Implemented comprehensive, graceful UI safety cycles (Loading → Error → Empty → Content) across the asynchronous application flow.
+
+Conducted full end-to-end manual workflow testing to verify route safety and data persistence before merging the final feature branch into main.
 
 ## Phase 6: Final Testing & Delivery
 

@@ -24,9 +24,13 @@ Current documentation includes:
 
 Together, these documents describe the application's database design, navigation flow, scheduling logic, and overall architecture throughout development.
 
-## Planned Architecture
+## Architecture Diagram
 
-### Application Structure
+The architecture diagram illustrates how CalmAnchor Lite is organised into distinct layers to separate user interface logic from data access. Screens interact with dedicated Supabase service modules rather than communicating directly with the database, while PostgreSQL constraints enforce data integrity independently of the application. This layered structure improves maintainability, keeps responsibilities clearly separated, and allows each feature to evolve without tightly coupling the UI to the backend.
+
+- [App-architecture](./docs/images/app-architecture.png)
+
+## Architecture
 
 CalmAnchor Lite follows a layered React Native architecture consisting of a Presentation Layer and a Data Layer.
 
@@ -50,7 +54,7 @@ Database integrity is enforced through foreign keys, UNIQUE constraints and CHEC
 
 The database was seeded with one doctor, five patients and five appointments to support development and testing.
 
-## Planned Technology Stack
+## Technology Stack
 
 - React Native
 - TypeScript
@@ -59,6 +63,17 @@ The database was seeded with one doctor, five patients and five appointments to 
 - React Context for state management
 
 React Context was selected because the application scope is intentionally limited to a single doctor managing one working day. A lightweight state management approach avoids unnecessary complexity while meeting the project requirements.
+
+---
+
+## Key Features
+
+- View today's appointments
+- Browse all patients
+- View patient medical history
+- Reschedule appointments
+- Automatic prevention of double booking
+- Doctor profile screen
 
 ---
 
@@ -73,7 +88,7 @@ Planned development stages:
 3. Day Schedule screen with live appointment data retrieved from Supabase ✅
 4. Patient management (Patient List, Patient Detail and navigation) ✅
 5. Appointment rescheduling ✅
-6. Final testing and Android build preparation (planned)
+6. Final testing and Android build preparation ✅
 
 Each major feature will be developed in its own branch and merged into `main` only when the feature is complete and stable.
 
@@ -81,6 +96,9 @@ Each major feature will be developed in its own branch and merged into `main` on
 
 ## 🤖 Agent Usage Disclosure
 
-AI-assisted development tools may be used during the project.
+AI-assisted tools were used throughout the development process to support learning and implementation.
 
-Any generated suggestions or code will be reviewed, tested, and adapted where necessary to ensure that the final implementation follows the planned architecture and meets the project requirements.
+Google Gemini was primarily used to help break down the project requirements into manageable development phases and implementation tasks.
+ChatGPT was used to deepen understanding of React Native concepts, including components, hooks, navigation patterns, and TypeScript usage, as well as to clarify implementation details during development.
+
+All AI-generated suggestions and code were carefully reviewed, tested, and adapted before being incorporated into the project. The final implementation, architecture, documentation, and design decisions were validated to ensure they met the project requirements and reflected the author's understanding.
