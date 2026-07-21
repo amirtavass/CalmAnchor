@@ -5,19 +5,16 @@ import { RootStackParamList } from "../../types/navigation";
 import { getPatient } from "../../services/supabase/patients";
 import { Patient } from "../../types/patient";
 
-//this line extracts the patientId:string
 type PatientDetailRouteProp = RouteProp<RootStackParamList, "PatientDetail">;
 
 export default function PatientDetailScreen() {
-  //in react useParams is used for this concept
   const route = useRoute<PatientDetailRouteProp>();
+
   const { patientId } = route.params;
 
   const [patient, setPatient] = useState<Patient | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
-  //patientid must be included in the dependency array of useEffect as it would change
 
   useEffect(() => {
     const loadPatient = async () => {

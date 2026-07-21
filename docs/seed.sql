@@ -1,3 +1,5 @@
+BEGIN;
+
 -- ============================
 -- Clearing exisitng tables
 -- ============================
@@ -38,3 +40,6 @@ VALUES
 ('d1234567-e89b-12d3-a456-426614174000', 'a3333333-e89b-12d3-a456-426614174000', CURRENT_DATE, '11:00:00', '11:20:00', 'Discuss recent panic attack triggers.'),
 ('d1234567-e89b-12d3-a456-426614174000', 'a4444444-e89b-12d3-a456-426614174000', CURRENT_DATE, '13:40:00', '14:00:00', 'Standard weekly check-in.'),
 ('d1234567-e89b-12d3-a456-426614174000', 'a5555555-e89b-12d3-a456-426614174000', CURRENT_DATE, '15:20:00', '15:40:00', 'Initial ADHD evaluation questionnaire.');
+
+
+COMMIT;

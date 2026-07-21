@@ -16,18 +16,22 @@ import {
   rescheduleAppointment,
 } from "../../services/supabase/appointments";
 import { getAvailableSlots, calculateEndTime } from "../../utils/timeSlots";
-//extracting data step 1 (Ts strict rule)
+
 type ChangeRouteProp = RouteProp<RootStackParamList, "ChangeAppointment">;
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 export default function ChangeAppointmentScreen() {
-  //extracting data step 2 with useRoute(same as useparams in react)
   const route = useRoute<ChangeRouteProp>();
   const navigation = useNavigation<NavigationProp>();
-  //extracting data step 3 by destructing (the data coming from dayschedule index.tsx)
+
   const { appointmentId, currentDate } = route.params;
 
+  // Stores only appointment slots that remain available
+  // after booked times have been filtered out.
   const [availableSlots, setAvailableSlots] = useState<string[]>([]);
+
+  // Stores the specific appointment time tapped by the user
+  // before the new time is confirmed and sent to the database.
   const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
 
   const [loading, setLoading] = useState(true);
