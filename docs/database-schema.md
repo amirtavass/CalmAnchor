@@ -10,6 +10,14 @@ The following ERD shows the three main entities of the application and relations
 
 ![DB Architecture](./images/database-schema.png)
 
+> **💡 Core Design Decision: Database-Enforced Scheduling**
+> Rather than trusting frontend validation alone, CalmAnchor Lite strictly enforces scheduling rules directly at the database level.
+>
+> - **`UNIQUE (doctor_id, appointment_date, start_time)`** mathematically prevents double-booking.
+> - **`CHECK duration = 20 minutes`** guarantees uniform appointment slots.
+> - **`CHECK working hours`** restricts bookings to the 09:00–17:00 window.
+> - **`CHECK valid status`** ensures only predefined appointment states are saved.
+
 ---
 
 ## Design Decisions
@@ -70,3 +78,7 @@ When the doctor selects an appointment, the application uses the `patient_id` to
 ### Reschedule Screen (Change Appointment Form)
 
 When an appointment is rescheduled, the application gets all booked appointment times for the selected day and excludes those slots from the list of available times. Database constraints provide an additional safety by preventing invalid appointments from being stored.
+
+### Settings Screen (Doctor Profile)
+
+The Settings screen retrieves the doctor's profile from Supabase using a dedicated service module. The returned data is displayed through a read-only UI following the Loading → Error → Content rendering cycle.

@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, ActivityIndicator } from "react-native";
+import { View, Text } from "react-native";
+import { styles } from "./styles";
 import { RouteProp, useRoute } from "@react-navigation/native";
 import { RootStackParamList } from "../../types/navigation";
 import { getPatient } from "../../services/supabase/patients";
 import { Patient } from "../../types/patient";
+import LoadingView from "../../components/LoadingView";
+import ErrorView from "../../components/ErrorView";
 
 type PatientDetailRouteProp = RouteProp<RootStackParamList, "PatientDetail">;
 
@@ -32,26 +35,10 @@ export default function PatientDetailScreen() {
     loadPatient();
   }, [patientId]);
 
-  if (loading)
-    return (
-      <View style={styles.center}>
-        <ActivityIndicator size="large" color="#0288D1" />
-      </View>
-    );
-  if (error)
-    return (
-      <View style={styles.center}>
-        <Text style={styles.errorText}>Fetch Error: {error}</Text>
-      </View>
-    );
+  if (loading) return <LoadingView message="Loading patient records..." />;
+  if (error) return <ErrorView message={error} />;
   if (!patient)
-    return (
-      <View style={styles.center}>
-        <Text style={styles.errorText}>
-          Patient profile could not be resolved.
-        </Text>
-      </View>
-    );
+    return <ErrorView message="Patient profile could not be resolved." />;
 
   return (
     <View style={styles.container}>
@@ -66,29 +53,3 @@ export default function PatientDetailScreen() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#F8FAFC", padding: 20 },
-  center: { flex: 1, justifyContent: "center", alignItems: "center" },
-  title: {
-    fontSize: 26,
-    fontWeight: "bold",
-    color: "#0F172A",
-    marginBottom: 24,
-  },
-  sectionCard: {
-    backgroundColor: "#FFF",
-    padding: 18,
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: "#F1F5F9",
-  },
-  sectionTitle: {
-    fontSize: 18,
-    fontWeight: "600",
-    color: "#334155",
-    marginBottom: 10,
-  },
-  bodyText: { fontSize: 16, color: "#475569", lineHeight: 24 },
-  errorText: { fontSize: 16, color: "#EF4444", fontWeight: "500" },
-});

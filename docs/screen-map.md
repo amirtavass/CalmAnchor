@@ -12,7 +12,7 @@ This diagram shows the navigation flow of CalmAnchor Lite and how the main scree
 - → _Opens:_ **Patient Detail** (via tapping an appointment)
 - → _Opens:_ **Change Appointment Form** (via Edit button)
   - → _After saving changes:_ Returns to the updated **Day Schedule**
-- → _Opens:_ **Patient List** (via View All Patients button)
+- → _Opens:_ **Patient List** (via All Patients button)
 - → _Opens:_ **Doctor Profile / Settings** (via Settings button)
 
 **2. Patient List**

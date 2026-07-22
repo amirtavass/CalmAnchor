@@ -19,6 +19,7 @@ The verification process confirms that the database constraints, data retrieval,
 | Patient List retrieval            | All seeded patients displayed | Passed  |
 | Patient Detail retrieval          | Selected patient loaded       | Passed  |
 | Navigation to Patient Detail      | Opens correct patient         | Passed  |
+| Settings screen retrieval         | Doctor profile displayed      | Passed  |
 
 ---
 
@@ -92,7 +93,7 @@ Selecting a patient from either the Day Schedule or the Patient List opened the 
 
 ### Phase 4 – Available slots calculation
 
-The Change Appointment screen successfully retrieved currently booked times from the database and mathematically filtered them out of the generated 20-minute interval list, preventing the user from double-booking existing slots.
+The Change Appointment screen successfully retrieved currently booked times from the database and mathematically filtered them out of the generated 20-minute interval list (24 total slots generated, 5 booked times filtered out, resulting in 19 available slots), mathematically preventing the user from double-booking existing slots.
 
 ![Available slots grid](./images/phase4-available-slots.jpeg)
 
