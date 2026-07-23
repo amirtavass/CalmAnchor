@@ -12,7 +12,11 @@ All project design and architecture documentation is maintained inside the `/doc
 
 Current documentation includes:
 
+- [Development Roadmap](./docs/development-roadmap.md)
+
 - [Database Schema & ERD](./docs/database-schema.md)
+
+- [Verification Log](./docs/verification-log.md)
 
 - [User Journey](./docs/user-journey.md)
 
