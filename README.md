@@ -2,7 +2,7 @@
 
 A cross-platform mobile application prototype based on the CalmAnchor CPTSD toolkit workflow.
 
-The project demonstrates a fixed-scenario appointment management system where a single doctor can manage patient information and a daily appointment schedule. The application focuses on relational database design, CRUD operations, and appointment slot management while ensuring that unavailable appointment times are not presented as selectable options.
+The project implements a fixed-scenario appointment management system for a single doctor managing one working day. It focuses on relational database design, CRUD operations, and appointment rescheduling while ensuring that unavailable appointment slots are never presented to the user.
 
 ---
 
@@ -22,19 +22,19 @@ Current documentation includes:
 
 - [Appointment Scheduling Logic](./docs/scheduling-logic.md)
 
-Together, these documents describe the application's database design, navigation flow, scheduling logic, and overall architecture throughout development.
+Together, these documents describe the application's database design, navigation flow, scheduling logic, and overall architecture development.
 
 ## Architecture Diagram
 
-The architecture diagram illustrates how CalmAnchor Lite is organised into distinct layers to separate user interface logic from data access.Screens never communicate directly with Supabase. Instead, all database access is encapsulated within dedicated service modules that consume a shared Supabase client configured in src/lib/supabase.ts. This layered structure improves maintainability, keeps responsibilities clearly separated, and allows each feature to evolve without tightly coupling the UI to the backend.
+The architecture diagram shows how CalmAnchor is organised into distinct layers to separate user interface logic from data access.Screens never communicate directly with Supabase. Instead, all database access is encapsulated within service modules that consume a shared Supabase client configured in src/lib/supabase.ts. This layered structure improves maintainability, keeps responsibilities clearly separated, and allows each feature to evolve without tightly coupling the UI to the backend.
 
 ![Application Architecture](./docs/images/app-architecture.png)
 
 ## Architecture & State Management
 
-CalmAnchor Lite follows a layered React Native architecture consisting of a Presentation Layer and a Data Layer.
+CalmAnchor Lite is built on a clean, layered React Native architecture that intentionally separates the Presentation Layer from the Data Layer.
 
-The Presentation Layer contains the application's screens, reusable components, and navigation logic. React Navigation manages stack movement across all five integrated screens:
+The Presentation Layer handles everything the user interacts with. React Navigation manages stack movement across all five integrated screens:
 
 1. **Day Schedule** (Home & Central Hub)
 2. **Patient List**
@@ -42,11 +42,11 @@ The Presentation Layer contains the application's screens, reusable components, 
 4. **Change Appointment** (Rescheduling Form)
 5. **Settings** (Doctor Profile)
 
-The Data Layer communicates with Supabase through dedicated service modules, keeping database queries cleanly separated from the user interface components.
+Behind the scenes, the Data Layer uses dedicated service modules to talk to Supabase, keeping all database queries neatly isolated from the frontend code.
 
 ### State Management Strategy
 
-State is managed strictly at the component level using React hooks (`useState`, `useEffect`, and `useFocusEffect`). Because data requirements are tied to specific screens and cross-screen context is cleanly passed via React Navigation route parameters (such as `patientId` or `appointmentId`), global state containers like React Context or Redux were intentionally omitted. This lightweight, param-driven approach avoids unnecessary architectural complexity while keeping state predictably isolated per screen.
+State is managed strictly in the components using React hooks (`useState`, `useEffect`, and `useFocusEffect`). Because data requirements are tied to specific screens and cross-screen context is cleanly passed via React Navigation route parameters (such as `patientId` or `appointmentId`).
 
 ### Architectural Evolution Across Phases
 
@@ -62,7 +62,7 @@ The schema consists of three core entities:
 - Patient
 - Appointment
 
-Database integrity is enforced through foreign keys, `UNIQUE` constraints, and `CHECK` constraints. Appointment scheduling rules—such as fixed 20-minute appointments, working hours, and prevention of duplicate bookings—are validated by PostgreSQL constraints in addition to frontend validation.
+To keep our data perfectly reliable, the database relies on strict rules like foreign keys, `UNIQUE`, and `CHECK` constraints. This means our core scheduling logic—like enforcing exactly 20-minute sessions, respecting clinic hours, and preventing double-bookings—is securely locked down at the PostgreSQL level, acting as a robust backup to our frontend validation.
 
 The database was seeded with one doctor, five patients, and five appointments to support development and testing.
 
@@ -84,15 +84,44 @@ The database was seeded with one doctor, five patients, and five appointments to
 - Automatic prevention of double booking
 - Doctor profile screen
 
-Appointment availability is validated at two levels: the UI proactively filters unavailable slots for a better user experience, while PostgreSQL constraints provide a final guarantee that invalid or conflicting appointments cannot be stored.
+We handle appointment availability using a two-step approach. On the surface, the UI proactively hides booked time slots to give users a smooth, frictionless scheduling experience. Behind the scenes, the PostgreSQL database acts as the ultimate safety net, guaranteeing that no conflicting or invalid appointments can ever actually be saved.
+
+---
+
+# Project Structure
+
+The application is organized around features to ensure related code together and encourage separation of concerns.
+
+```text
+App.tsx
+docs/
+src/
+├── components/       # Reusable UI components
+├── navigation/       # Stack and tab navigation
+├── screens/
+│   ├── DaySchedule/
+│   ├── PatientList/
+│   ├── PatientDetail/
+│   ├── ChangeAppointment/
+│   └── Settings/
+├── services/
+│   └── supabase/
+│       ├── appointments.ts
+│       ├── patients.ts
+│       └── doctor.ts
+├── types/            # TypeScript interfaces
+├── utils/            # Shared helper functions
+└── lib/
+    └── supabase.ts   # Supabase client configuration
+```
 
 ---
 
 ## Development Workflow
 
-The project was developed using a strict Git Flow methodology.
+The project followed a feature-branch workflow inspired by Git Flow.
 
-To maintain a clean main branch, every major feature and documentation update was implemented on an isolated feature branch. These branches were thoroughly tested and reviewed before being merged into `main` via Pull Requests. Merged branches were subsequently deleted to maintain repository hygiene.
+To keep a clean main branch, every major feature and documentation update was implemented on an isolated feature branch. These branches were thoroughly tested and reviewed before being merged into `main` via Pull Requests. Merged branches were subsequently deleted to maintain repository hygiene.
 
 Examples of executed feature branches include:
 
@@ -122,4 +151,4 @@ AI-assisted tools were used throughout the development process to support planni
 - **Google Gemini:** Utilized for project planning, breaking down academic rubric requirements into structured development phases, generating step-by-step implementation guides, drafting code architectures, writing technical documentation, and organizing git commit strategies.
 - **ChatGPT:** Utilized to deepen understanding of React Native concepts (including navigation stack patterns, component lifecycles, and TypeScript typing), troubleshoot environment and build configurations, and clarify debugging logic during development.
 
-All AI-generated code snippets, architectural recommendations, and documentation content were critically reviewed, manually integrated, tested in the local environment, and verified to make sure full alignment with project requirements.
+All AI-generated suggestions, code snippets, documentation, and architectural recommendations were reviewed, adapted where necessary, tested locally, and only incorporated after they were fully understood and validated against the project requirements.

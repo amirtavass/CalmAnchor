@@ -63,7 +63,7 @@ The database prevented an appointment from being created outside the configured 
 
 A correctly formatted appointment satisfying every database constraint was inserted successfully.
 
-![Valid appointment inserted](./images/image-3.png)
+![Valid appointment inserted](./images/phase1-valid-appointment.png)
 
 ---
 
@@ -109,7 +109,7 @@ Submitting a new time triggered a successful database mutation. The application 
 
 The Day Schedule screen was successfully refactored to act as the central routing hub. The new stacked header accurately tracks the dynamic state of the database by displaying the live appointment count, and successfully routes to all other areas of the application.
 
-![Day Schedule new layout and navigation hub](./images/phase5-day-schedule-hub.jpeg)
+![Day Schedule new layout and navigation hub](./images/phase5-day-schedule.jpeg)
 
 ---
 

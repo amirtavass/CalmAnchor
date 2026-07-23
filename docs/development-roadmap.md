@@ -18,34 +18,6 @@ A phase is considered complete when the implementation has been verified, docume
 
 ---
 
-# Project Structure
-
-The application is organized around features to ensure related code together and encourage separation of concerns.
-
-```text
-src/
-├── components/       # Reusable UI components
-├── navigation/       # Stack and tab navigation
-├── screens/
-│   ├── DaySchedule/
-│   ├── PatientList/
-│   ├── PatientDetail/
-│   ├── ChangeAppointment/
-│   └── Settings/
-├── services/
-│   └── supabase/
-│       ├── appointments.ts
-│       ├── patients.ts
-│       └── doctor.ts
-├── hooks/            # Custom React hooks
-├── types/            # TypeScript interfaces
-├── utils/            # Shared helper functions
-└── lib/
-    └── supabase.ts   # Supabase client configuration
-```
-
----
-
 ## ⚖️ Architectural Trade-offs
 
 | Decision                  | Alternatives Considered  | Rationale                                                                                                                       |
