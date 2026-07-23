@@ -1,6 +1,6 @@
 # Screen Map
 
-![Screen Map](./images/screen-map.png)
+![Screen Map](./images/screen-Map.png)
 
 This diagram shows the navigation flow of CalmAnchor Lite and how the main screens are connected. The Day Schedule acts as the starting point for managing the doctor's daily appointments, while patient information and appointment changes can be accessed through related screens.
 
