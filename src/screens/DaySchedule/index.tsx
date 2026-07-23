@@ -6,6 +6,7 @@ import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../types/navigation";
 import { Feather } from "@expo/vector-icons";
+import SettingsIcon from "../../../docs/images/svgs/settings.svg";
 import { getTodayAppointments } from "../../services/supabase/appointments";
 import { DailyAppointment } from "../../types/appointment";
 import LoadingView from "../../components/LoadingView";
@@ -143,8 +144,12 @@ export default function DayScheduleScreen() {
             style={styles.quickAccessCard}
             onPress={() => navigation.navigate("PatientList")}
           >
-            <View style={[styles.iconWrapper, { backgroundColor: "#ECFDF5" }]}>
-              <Feather name="clipboard" size={24} color="#10B981" />
+            <View style={[styles.iconWrapper]}>
+              <Image
+                source={require("../../../docs/images/Medical_Kit.png")}
+                style={{ width: 28, height: 28 }}
+                resizeMode="contain"
+              />
             </View>
             <Text style={styles.quickAccessText}>Patients</Text>
           </TouchableOpacity>
@@ -153,8 +158,8 @@ export default function DayScheduleScreen() {
             style={styles.quickAccessCard}
             onPress={() => navigation.navigate("Settings")}
           >
-            <View style={[styles.iconWrapper, { backgroundColor: "#F5F3FF" }]}>
-              <Feather name="sliders" size={24} color="#8B5CF6" />
+            <View style={[styles.iconWrapper]}>
+              <SettingsIcon width={24} height={24} />
             </View>
             <Text style={styles.quickAccessText}>Settings</Text>
           </TouchableOpacity>
