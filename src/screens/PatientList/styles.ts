@@ -15,5 +15,5 @@ export const styles = StyleSheet.create({
     borderColor: "#F1F5F9",
   },
   patientName: { fontSize: 16, fontWeight: "600", color: "#1E293B" },
-  viewLink: { fontSize: 14, color: "#0288D1", fontWeight: "500" },
+  viewLink: { fontSize: 14, color: "#2563EB", fontWeight: "500" },
 });

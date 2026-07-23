@@ -7,108 +7,217 @@ export const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    paddingHorizontal: 20,
+    paddingHorizontal: 24,
   },
+
+  // --- HEADER SECTION ---
   header: {
-    marginTop: 10,
-    marginBottom: 24,
+    marginTop: 16,
+    marginBottom: 28,
+  },
+  headerTopRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  profileSection: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 12,
+  },
+  avatar: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    backgroundColor: "#E2E8F0",
+  },
+  greeting: {
+    fontSize: 14,
+    color: "#64748B",
+    fontWeight: "500",
+    marginBottom: 2,
   },
   headerTitle: {
-    fontSize: 28,
-    fontWeight: "bold",
+    fontSize: 22,
+    fontWeight: "800",
     color: "#0F172A",
+    letterSpacing: -0.5,
+  },
+  notificationBadge: {
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    backgroundColor: "#FFFFFF",
+    justifyContent: "center",
+    alignItems: "center",
+    borderWidth: 1,
+    borderColor: "#F1F5F9",
+    position: "relative",
+  },
+  notificationDot: {
+    position: "absolute",
+    top: 12,
+    right: 12,
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    backgroundColor: "#EF4444",
+    borderWidth: 1,
+    borderColor: "#FFFFFF",
   },
   subtitle: {
-    fontSize: 16,
-    color: "#64748B",
-    marginTop: 4,
-  },
-  headerActions: {
-    flexDirection: "row",
+    fontSize: 15,
+    color: "#334155",
+    fontWeight: "500",
     marginTop: 16,
-    gap: 10,
   },
-  navButton: {
-    backgroundColor: "#E2E8F0",
-    paddingVertical: 8,
-    paddingHorizontal: 16,
-    borderRadius: 8,
+
+  // --- QUICK ACCESS SECTION ---
+  quickAccessContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 32,
+    gap: 16,
   },
-  navButtonText: {
+  quickAccessCard: {
+    flex: 1,
+    backgroundColor: "#FFFFFF",
+    padding: 16,
+    borderRadius: 20,
+    alignItems: "center", // FIXED: Icons are now perfectly centered
+    shadowColor: "#0F172A",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.03,
+    shadowRadius: 12,
+    elevation: 2,
+    borderWidth: 1,
+    borderColor: "#F1F5F9",
+  },
+  iconWrapper: {
+    width: 48,
+    height: 48,
+    borderRadius: 16,
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 12,
+  },
+  quickAccessText: {
+    fontSize: 15,
+    fontWeight: "700",
     color: "#1E293B",
-    fontWeight: "600",
+  },
+
+  // --- LIST SECTION HEADER ---
+  sectionHeaderRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "baseline",
+    marginBottom: 16,
+  },
+  sectionTitle: {
+    fontSize: 18,
+    fontWeight: "800",
+    color: "#0F172A",
+    letterSpacing: -0.3,
+  },
+  seeAllText: {
     fontSize: 14,
+    fontWeight: "600",
+    color: "#64748B",
+  },
+
+  // --- LIST CONTENT ---
+  listContainer: {
+    paddingBottom: 40,
+    flexGrow: 1,
   },
   centerContainer: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    marginTop: 40,
   },
   emptyText: {
-    fontSize: 16,
+    fontSize: 18,
     color: "#64748B",
-    fontStyle: "italic",
+    fontWeight: "600",
+    textAlign: "center",
   },
-  listContainer: {
-    paddingBottom: 20,
-    flexGrow: 1,
+  emptySubtext: {
+    fontSize: 14,
+    color: "#94A3B8",
+    marginTop: 8,
   },
+
+  // --- NEW CARD STYLES ---
   cardContainer: {
     flexDirection: "row",
+    alignItems: "center",
     backgroundColor: "#FFFFFF",
-    borderRadius: 12,
-    marginBottom: 12,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.05,
-    shadowRadius: 4,
+    borderRadius: 20, // Very soft, modern corners
+    padding: 16,
+    marginBottom: 14,
+    shadowColor: "#0F172A",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.03,
+    shadowRadius: 12,
     elevation: 2,
     borderWidth: 1,
     borderColor: "#F1F5F9",
-    overflow: "hidden",
   },
-  cardMain: {
-    flex: 1,
-    flexDirection: "row",
-    padding: 16,
-  },
-  timeContainer: {
+  avatarWrapper: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    backgroundColor: "#EFF6FF", // Soft blue background
     justifyContent: "center",
-    paddingRight: 16,
-    borderRightWidth: 1,
-    borderRightColor: "#E2E8F0",
-    width: 80,
+    alignItems: "center",
+    marginRight: 16,
   },
-  timeText: {
-    fontSize: 18,
+  avatarLetter: {
+    fontSize: 20,
     fontWeight: "700",
-    color: "#0288D1",
+    color: "#2563EB",
   },
   detailsContainer: {
     flex: 1,
-    paddingLeft: 16,
     justifyContent: "center",
   },
   patientName: {
     fontSize: 16,
-    fontWeight: "600",
+    fontWeight: "700",
     color: "#1E293B",
-    marginBottom: 4,
+    marginBottom: 6,
+  },
+  timeRow: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  timeText: {
+    fontSize: 14,
+    fontWeight: "600",
+    color: "#64748B",
+    marginLeft: 6,
+  },
+  dotSeparator: {
+    width: 4,
+    height: 4,
+    borderRadius: 2,
+    backgroundColor: "#CBD5E1",
+    marginHorizontal: 8,
   },
   statusText: {
     fontSize: 14,
-    color: "#64748B",
-    textTransform: "capitalize",
+    fontWeight: "600",
+    color: "#10B981", // Soft green for scheduled/completed
   },
-  editButton: {
-    padding: 16,
+  editIconButton: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: "#F5F3FF", // Matches settings icon background
     justifyContent: "center",
-    backgroundColor: "#F8FAFC",
-    borderLeftWidth: 1,
-    borderLeftColor: "#E2E8F0",
-  },
-  editButtonText: {
-    color: "#0288D1",
-    fontWeight: "bold",
+    alignItems: "center",
+    marginLeft: 12,
   },
 });

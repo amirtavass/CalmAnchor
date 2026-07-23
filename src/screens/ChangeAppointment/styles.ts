@@ -21,11 +21,11 @@ export const styles = StyleSheet.create({
     borderColor: "#CBD5E1",
     alignItems: "center",
   },
-  slotButtonSelected: { backgroundColor: "#0288D1", borderColor: "#0288D1" },
+  slotButtonSelected: { backgroundColor: "#2563EB", borderColor: "#2563EB" },
   slotText: { fontSize: 16, fontWeight: "500", color: "#334155" },
   slotTextSelected: { color: "#FFFFFF" },
   saveButton: {
-    backgroundColor: "#0288D1",
+    backgroundColor: "#2563EB",
     padding: 16,
     borderRadius: 12,
     alignItems: "center",
