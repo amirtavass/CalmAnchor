@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
-  StyleSheet,
   ActivityIndicator,
   FlatList,
   TouchableOpacity,
   Alert,
 } from "react-native";
+import { styles } from "./styles";
 import { RouteProp, useRoute, useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../types/navigation";
@@ -16,6 +16,8 @@ import {
   rescheduleAppointment,
 } from "../../services/supabase/appointments";
 import { getAvailableSlots, calculateEndTime } from "../../utils/timeSlots";
+import LoadingView from "../../components/LoadingView";
+import ErrorView from "../../components/ErrorView";
 
 type ChangeRouteProp = RouteProp<RootStackParamList, "ChangeAppointment">;
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
@@ -95,18 +97,8 @@ export default function ChangeAppointmentScreen() {
     );
   };
 
-  if (loading)
-    return (
-      <View style={styles.center}>
-        <ActivityIndicator size="large" color="#0288D1" />
-      </View>
-    );
-  if (error)
-    return (
-      <View style={styles.center}>
-        <Text style={styles.errorText}>Error: {error}</Text>
-      </View>
-    );
+  if (loading) return <LoadingView message="Loading available slots..." />;
+  if (error) return <ErrorView message={error} />;
 
   if (availableSlots.length === 0) {
     return (
@@ -145,47 +137,3 @@ export default function ChangeAppointmentScreen() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#F8FAFC", padding: 20 },
-  center: { flex: 1, justifyContent: "center", alignItems: "center" },
-  header: {
-    fontSize: 18,
-    fontWeight: "600",
-    color: "#1E293B",
-    marginBottom: 20,
-    textAlign: "center",
-  },
-  listContainer: { paddingBottom: 20 },
-  row: { justifyContent: "space-between", marginBottom: 12 },
-  slotButton: {
-    flex: 1,
-    backgroundColor: "#FFFFFF",
-    paddingVertical: 14,
-    marginHorizontal: 4,
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: "#CBD5E1",
-    alignItems: "center",
-  },
-  slotButtonSelected: { backgroundColor: "#0288D1", borderColor: "#0288D1" },
-  slotText: { fontSize: 16, fontWeight: "500", color: "#334155" },
-  slotTextSelected: { color: "#FFFFFF" },
-  saveButton: {
-    backgroundColor: "#0288D1",
-    padding: 16,
-    borderRadius: 12,
-    alignItems: "center",
-    marginTop: 10,
-    marginBottom: 20,
-  },
-  saveButtonDisabled: { backgroundColor: "#94A3B8" },
-  saveButtonText: { color: "#FFFFFF", fontSize: 18, fontWeight: "bold" },
-  errorText: { color: "#EF4444", fontSize: 16 },
-  emptyText: {
-    fontSize: 16,
-    color: "#64748B",
-    fontStyle: "italic",
-    textAlign: "center",
-  },
-});

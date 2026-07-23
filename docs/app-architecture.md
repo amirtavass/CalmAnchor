@@ -10,7 +10,7 @@ The React Native application is split up into various responsibilities. The Pres
 
 ## Supabase Database Architecture
 
-![DB Architecture](./images/database-schema.png)
+![DB Architecture](./images/supabase-architecture.png)
 
 CalmAnchor Lite stores and retrieves application data via Supabase cloud backend.
 
@@ -18,8 +18,14 @@ The React Native application communicates with Supabase through the Supabase JS 
 
 The database has the following core entities:
 
-- Doctor
-- Patient
-- Appointment
+Doctor
+
+Patient
+
+Appointment
+
+> **Engineering Note**
+
+> All database tables and columns are strictly named using lowercase casing (e.g., doctor, patient_id). This standardizes the schema and avoids PostgreSQL's strict requirement for double-quoting capitalized identifiers during queries.
 
 These relationships are managed through PostgreSQL foreign keys to keep data consistency.

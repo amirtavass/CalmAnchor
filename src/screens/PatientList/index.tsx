@@ -1,17 +1,13 @@
 import React, { useEffect, useState } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  FlatList,
-  ActivityIndicator,
-  TouchableOpacity,
-} from "react-native";
+import { View, Text, FlatList, TouchableOpacity } from "react-native";
+import { styles } from "./styles";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../types/navigation";
 import { getAllPatients } from "../../services/supabase/patients";
 import { Patient } from "../../types/patient";
+import LoadingView from "../../components/LoadingView";
+import ErrorView from "../../components/ErrorView";
 
 export default function PatientListScreen() {
   //this line prevents wrong route name or missing params
@@ -54,18 +50,8 @@ export default function PatientListScreen() {
     </TouchableOpacity>
   );
 
-  if (loading)
-    return (
-      <View style={styles.center}>
-        <ActivityIndicator size="large" color="#0288D1" />
-      </View>
-    );
-  if (error)
-    return (
-      <View style={styles.center}>
-        <Text style={styles.errorText}>Error: {error}</Text>
-      </View>
-    );
+  if (loading) return <LoadingView message="Loading patient catalog..." />;
+  if (error) return <ErrorView message={error} />;
 
   return (
     <View style={styles.container}>
@@ -85,23 +71,3 @@ export default function PatientListScreen() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#F8FAFC", paddingHorizontal: 20 },
-  center: { flex: 1, justifyContent: "center", alignItems: "center" },
-  listContainer: { paddingTop: 16, paddingBottom: 20 },
-  rowCard: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    backgroundColor: "#FFFFFF",
-    padding: 18,
-    borderRadius: 12,
-    marginBottom: 10,
-    borderWidth: 1,
-    borderColor: "#F1F5F9",
-  },
-  patientName: { fontSize: 16, fontWeight: "600", color: "#1E293B" },
-  viewLink: { fontSize: 14, color: "#0288D1", fontWeight: "500" },
-  errorText: { fontSize: 16, color: "#EF4444", fontWeight: "500" },
-});
