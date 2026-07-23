@@ -10,7 +10,6 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 24,
   },
 
-  // --- HEADER SECTION ---
   header: {
     marginTop: 16,
     marginBottom: 28,
@@ -72,7 +71,6 @@ export const styles = StyleSheet.create({
     marginTop: 16,
   },
 
-  // --- QUICK ACCESS SECTION ---
   quickAccessContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -84,7 +82,7 @@ export const styles = StyleSheet.create({
     backgroundColor: "#FFFFFF",
     padding: 16,
     borderRadius: 20,
-    alignItems: "center", // FIXED: Icons are now perfectly centered
+    alignItems: "center",
     shadowColor: "#0F172A",
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.03,
@@ -107,7 +105,6 @@ export const styles = StyleSheet.create({
     color: "#1E293B",
   },
 
-  // --- LIST SECTION HEADER ---
   sectionHeaderRow: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -126,7 +123,6 @@ export const styles = StyleSheet.create({
     color: "#64748B",
   },
 
-  // --- LIST CONTENT ---
   listContainer: {
     paddingBottom: 40,
     flexGrow: 1,
@@ -149,12 +145,11 @@ export const styles = StyleSheet.create({
     marginTop: 8,
   },
 
-  // --- NEW CARD STYLES ---
   cardContainer: {
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: "#FFFFFF",
-    borderRadius: 20, // Very soft, modern corners
+    borderRadius: 20,
     padding: 16,
     marginBottom: 14,
     shadowColor: "#0F172A",
@@ -169,7 +164,7 @@ export const styles = StyleSheet.create({
     width: 50,
     height: 50,
     borderRadius: 25,
-    backgroundColor: "#EFF6FF", // Soft blue background
+    backgroundColor: "#EFF6FF",
     justifyContent: "center",
     alignItems: "center",
     marginRight: 16,
@@ -209,13 +204,13 @@ export const styles = StyleSheet.create({
   statusText: {
     fontSize: 14,
     fontWeight: "600",
-    color: "#10B981", // Soft green for scheduled/completed
+    color: "#475569",
   },
   editIconButton: {
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: "#F5F3FF", // Matches settings icon background
+    backgroundColor: "#F5F3FF",
     justifyContent: "center",
     alignItems: "center",
     marginLeft: 12,
